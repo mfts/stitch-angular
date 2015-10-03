@@ -29,3 +29,6 @@ app.controller 'PresentationCtrl', ($scope, $state, $window, Dropbox) ->
   $scope.createEvent = () ->
   	console.log "new event created"
   	console.log $scope.newEvent
+  	Dropbox.mkdir($scope.newEvent.name).then () ->
+  		$state.reload()
+
