@@ -27,6 +27,15 @@ app.controller 'CreateCtrl', ($scope, $state, $window, $http, $modal, Dropbox, P
     console.log "logging in with dropbox..."
 
 
+  $scope.logout = () ->
+    $window.localStorage.clear()
+    $state.reload()
+  
+  $scope.getId = (folder) ->
+    console.log folder
+    # Remember.query({'where':{'folder_name':folder.substring(1)}}).then (object) ->
+      # return object.objectId
+
   $scope.createEvent = () ->
     console.log "new event created"
     console.log $scope.newEvent
@@ -37,32 +46,36 @@ app.controller 'CreateCtrl', ($scope, $state, $window, $http, $modal, Dropbox, P
       console.log "remember..."
       console.log parseRemember
       parseRemember.save().then (remember) ->
-        $scope.objectId = remember.objectId
+        console.log "saved"
+        console.log remember
       $state.reload()
 
-  $scope.finalizeModal = () ->
+  $scope.finalizeModal = (folder) ->
+    $scope.currentFolder = folder
     modalInstance = $modal.open(
       animation: true,
       templateUrl: 'messageModal.html',
       controller: 'FinalizeCtrl'
       resolve:
         subfolders: () ->
-          return ["jim.ppt", "harry.ppt", "gemima.ppt"]
-      )
+          return folder
+    )
+    modalInstance.result
+       .then () ->
+          # rematch rushees if report has been submitted
+          $scope.finalize($scope.currentFolder)
 
-  $scope.finalize = () ->
-    Remember.find($scope.objectId).then (remember) ->
-      `$http({
-      method: 'POST',
-      url: 'https://stitcher.scapp.io/stitch',
-      transformRequest: function(obj) {
-              var str = [];
-              for(var p in obj)
-              str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-              return str.join("&");
-          },
-      data: {oauth: remember.oauth, folder: remember.folder_name},
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-});`
+
+  $scope.finalize = (name) ->
+    name = name.substring(1)
+    Remember.query({'where':{'folder_name':name}}).then (remember) ->
+      console.log remember[0]
+      remember = remember[0]
+      data = {oauth: remember.oauth, folder: remember.folder_name}
+      console.log "https://stitcher.scapp.io/stitch/#{data.oauth}/#{data.folder}"
+      $http.jsonp("https://stitcher.scapp.io/stitch/#{data.oauth}/#{data.folder}")
+        .success (data, status, headers, config) ->
+          console.log "success"
+          $state.reload()
 
 

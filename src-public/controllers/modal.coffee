@@ -14,4 +14,4 @@ app.controller 'FinalizeCtrl', ($scope, $modalInstance, subfolders) ->
         $modalInstance.dismiss('cancel')
 
     $scope.execute = () ->
-        $modalInstance.dismiss('cancel')
+        $modalInstance.close(subfolders)

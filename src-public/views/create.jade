@@ -1,6 +1,6 @@
 .co-sm-1.col-sm-offset-11.text-center
 	.nav.navbar.text-center
-		.logout-button logout
+		.logout-button(ng-click="logout()") logout
 
 .text-center
 	h1 Hello {{user.name}}
@@ -30,12 +30,12 @@
 	.col-xs-6.col-xs-offset-3
 		table.table.table-hover.stitch-row
 			tr(ng-repeat="folder in folders")
-				td.lato(ng-click="finalizeModal()", style="width:20em;") {{folder.substring(1)}}
+				td.lato(ng-click="finalizeModal(folder)", style="width:20em;") {{folder.substring(1)}}
 				//- td &nbsp;&nbsp;&nbsp;
 				td.highlight-hover.text-center
 					pre.writing-cursor(style="padding:0 1em;")
 						code.link-code(data-lang="python")
-						| www.stitchit.com/329814839 
+						| "localhost:8008/#!/submit{{getId(folder)}}
 						//- a.copy(data-copy="something") www.stitchit.com/329814839
 
 	
