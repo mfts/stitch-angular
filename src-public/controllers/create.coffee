@@ -4,6 +4,7 @@ app.controller 'CreateCtrl', ($scope, $state, $window, Dropbox, Parse, Remember)
   $scope.newEvent = {}
 
   $scope.user = {}
+  $scope.folders = []
 
   console.log localStorage['dropbox-key'] isnt null
   if localStorage['dropbox-key'] isnt null
@@ -36,6 +37,6 @@ app.controller 'CreateCtrl', ($scope, $state, $window, Dropbox, Parse, Remember)
       console.log "remember..."
       console.log parseRemember
       parseRemember.save().then (remember) ->
-        console.log remember.objectId
+        $scope.remember = remember.objectId
   		$state.reload()
 

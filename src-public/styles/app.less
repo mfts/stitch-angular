@@ -2,6 +2,8 @@
 
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700italic);
 @import url(https://fonts.googleapis.com/css?family=Lato);
+@import url(https://fonts.googleapis.com/css?family=Eagle+Lake);
+@import url(https://fonts.googleapis.com/css?family=Amatic+SC);
 
 @dropbox-blue: #007ee5;
 
@@ -20,6 +22,57 @@ input {
 }
 .dropbox-logo {
 	content: url('../img/blue-dropbox-glyph.jpg');
+}
+
+.logout-button {
+	background-color: transparent;
+	font-family: 'Eagle Lake', cursive;
+	font-size: 1.5em;
+	color: @dropbox-blue;
+	border: none;
+
+	border-bottom: 4px solid;
+	margin-bottom: 3px transparent;
+
+	&:hover {
+		font-size: 1.7em;
+		border-bottom: 5px solid @dropbox-blue;
+		cursor:pointer;
+	}
+}
+
+.login-button {
+	background-color: transparent;
+	font-family: 'Eagle Lake', cursive;
+	font-size: 2.5em;
+	color: @dropbox-blue;
+	border: none;
+
+	border-bottom: 4px solid;
+	margin-bottom: 3px transparent;
+
+	&:hover {
+		font-size: 2.7em;
+		border-bottom: 5px solid @dropbox-blue;
+		cursor:pointer;
+	}
+}
+
+.submit-button {
+	background-color: transparent;
+	font-family: 'Eagle Lake', cursive;
+	font-size: 1.5em;
+	color: @dropbox-blue;
+	border: none;
+
+	border-bottom: 4px solid;
+	margin-bottom: 3px transparent;
+
+	&:hover {
+		font-size: 1.7em;
+		border-bottom: 5px solid @dropbox-blue;
+		cursor:pointer;
+	}
 }
 
 .btn-login {

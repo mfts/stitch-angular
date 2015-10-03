@@ -1,18 +1,19 @@
-.nav.navbar.text-right
-	a.logout-button logout
+.co-sm-1.col-sm-offset-11.text-center
+	.nav.navbar.text-center
+		.logout-button logout
 
 .text-center
-	h1 Hello {{user.name}} <br> <small>{{user.email}}</small>
-	br
-	br 
+	h1 Hello {{user.name}}
+	h4 <small>{{user.email}}</small>
 
 	h1 {{ accessToken }}
 
 	.col-xs-4.col-xs-offset-4
-		form#pre-presentation(role="form", name="new-event")
+		form#pre-presentation(role="form", name="new-event", ng-submit="createEvent()")
 			input.form-control(type="text", placeholder="Name of Event", ng-model="newEvent.name" required)
 			br
-			button.btn.btn-default(ng-click="createEvent()") Create event
+			button.submit-button(type="submit") create event
+			br
 			br
 			br
 			//- small. click on an event to see its link
