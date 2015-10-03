@@ -18,21 +18,26 @@
 			br
 			//- small. click on an event to see its link
 
-	.col-xs-6.col-xs-offset-3
-		table.table.table-hover.stitch-row
-			tr(ng-repeat="event in user.events", class="animation")
-				td {{event.name}}
-				td {{event.date}}
-				td.stitch-now
-					a.stitch-link
-						span.fa.fa-briefcase
+	//- .col-xs-6.col-xs-offset-3
+	//- 	table.table.table-hover.stitch-row
+	//- 		tr.lato(ng-repeat="event in user.events")
+	//- 			td {{event.name}}
+	//- 			td {{event.date}}
+	//- 			td.stitch-now
+	//- 				a.stitch-link
+	//- 					span.fa.fa-briefcase
 
 	.col-xs-6.col-xs-offset-3
 		table.table.table-hover.stitch-row
 			tr(ng-repeat="folder in folders")
-				td {{folder.substring(1)}}
-				td.stitch-now
-					a.stitch-link
-						span.fa.fa-briefcase
+				td.lato(ng-click="finalizeModal()", style="width:20em;") {{folder.substring(1)}}
+				//- td &nbsp;&nbsp;&nbsp;
+				td.highlight-hover.text-center
+					pre.writing-cursor(style="padding:0 1em;")
+						code.link-code(data-lang="python")
+						| www.stitchit.com/329814839 
+						//- a.copy(data-copy="something") www.stitchit.com/329814839
 
+	
+	//- button.btn(ng-click="finalizeModal()") FINALIZE
 

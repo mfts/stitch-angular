@@ -20,6 +20,19 @@ html(lang="en", ng-app="angularParseBoilerplate")
 
     main.container(ui-view)
 
+    //- MODAL: generalized message modal
+    script(type="text/ng-template", id="messageModal.html")
+        div.rushee-delete-modal
+            .modal-body
+                h4 {{message}}
+                table.table.text-center
+                    tr(ng-repeat="line in lines track by $index")
+                      td {{$index + 1}}
+                      td.bright-white {{line}}
+            .modal-footer
+                button.btn.btn-default(ng-click="cancel()") Cancel
+                //- TODO: make this cancel message changeable
+                button.btn.btn-warning(ng-click="execute()")  {{executeMessage}}
     script(src="js/vendor.js")
     script(src="js/templates.js")
     script(src="//cdnjs.cloudflare.com/ajax/libs/dropbox.js/0.10.2/dropbox.min.js")
