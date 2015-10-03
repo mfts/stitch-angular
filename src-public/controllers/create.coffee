@@ -1,4 +1,4 @@
-app.controller 'PresentationCtrl', ($scope, $state, $window, Dropbox, Parse, Remember) ->
+app.controller 'CreateCtrl', ($scope, $state, $window, Dropbox, Parse, Remember) ->
 
   $scope.message = "Stitch"
   $scope.newEvent = {}

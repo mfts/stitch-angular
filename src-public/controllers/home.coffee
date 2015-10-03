@@ -14,5 +14,5 @@ app.controller 'HomeCtrl', ($scope, $state, $location, Dropbox, $window) ->
     if $window.localStorage['dropbox-key'] != null
         accessToken = $window.localStorage['dropbox-key']
         # alert(accessToken)
-        $state.go('presentation', {})
+        $state.go('create', {})
 

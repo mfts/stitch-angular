@@ -31,10 +31,15 @@ app.config (
     url: '/home'
     controller: 'HomeCtrl'
     templateUrl: 'home.html'
-  .state 'presentation',
-    url: '/presentation'
-    controller: 'PresentationCtrl'
-    templateUrl: 'presentation.html'
+  .state 'create',
+    url: '/create'
+    controller: 'CreateCtrl'
+    templateUrl: 'create.html'
+    params: []
+  .state 'submit',
+    url: '/submit'
+    controller: 'SubmitCtrl'
+    templateUrl: 'submit.html'
     params: []
 
   $urlRouterProvider.otherwise '/home'
