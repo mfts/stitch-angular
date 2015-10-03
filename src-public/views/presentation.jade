@@ -4,10 +4,20 @@
 	br 
 
 	.col-xs-6.col-xs-offset-3
-		form(role="form", name="new-event")
+		form#pre-presentation(role="form", name="new-event")
 			input.form-control.text-center(type="text", placeholder="Name of Event", ng-model="newEvent.name")
 			br
 			button.btn.btn-default(ng-click="createEvent()") Create event
 			br
 			br
 			.panel.panel-default Your URL will show up here
+
+		table.table.table-hover.stitch-row
+			tr(ng-repeat="event in user.events")
+				td {{event.name}}
+				td {{event.date}}
+				td.stitch-now
+					a.stitch-link
+						span.fa.fa-briefcase
+
+
