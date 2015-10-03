@@ -16,7 +16,8 @@ app.config(function($locationProvider, $stateProvider, $urlRouterProvider, Parse
   }).state('presentation', {
     url: '/presentation',
     controller: 'PresentationCtrl',
-    templateUrl: 'presentation.html'
+    templateUrl: 'presentation.html',
+    params: []
   });
   $urlRouterProvider.otherwise('/home');
   ParseProvider.initialize("xw3annraVDvaHU4TfnW5kYV2i8EKX1ZTG8vM1CJ5", "HnPumKf2pJ4OI733IlIBSwibZKu7NbmcrBWUkAjy");
@@ -27,17 +28,32 @@ app.run(function($rootScope, $state) {
   return $rootScope.$state = $state;
 });
 
-app.controller('HomeCtrl', function($scope, Dropbox) {
+app.controller('HomeCtrl', function($scope, $state, $location, Dropbox, $window) {
   $scope.message = "Stitch";
-  return $scope.dropboxLogin = function() {
+  $scope.keys = $window.localStorage;
+  $scope.dropboxLogin = function() {
     console.log("logging in with dropbox...");
-    return Dropbox.authenticate();
+    return Dropbox.authenticate().then(function() {
+      $state.reload();
+      return $scope.present();
+    });
+  };
+  return $scope.present = function() {
+    var accessToken;
+    if ($window.localStorage['dropbox-key'] !== null) {
+      accessToken = $window.localStorage['dropbox-key'];
+      alert(accessToken);
+      return $state.go('presentation', {});
+    }
   };
 });
 
-app.controller('PresentationCtrl', function($scope) {
+app.controller('PresentationCtrl', function($scope, $state, $window) {
   $scope.message = "Stitch";
   $scope.newEvent = {};
+  if ($window.localStorage.length !== 1 && $window.localStorage['dropbox-key'] !== true) {
+    $state.go('home', {});
+  }
   $scope.user = {
     "name": "Harry Styles",
     "dropboxToken": "xxx",

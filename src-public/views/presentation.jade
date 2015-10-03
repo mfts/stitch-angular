@@ -3,6 +3,8 @@
 	br
 	br 
 
+	h1 {{ accessToken }}
+
 	.col-xs-6.col-xs-offset-3
 		form#pre-presentation(role="form", name="new-event")
 			input.form-control.text-center(type="text", placeholder="Name of Event", ng-model="newEvent.name")

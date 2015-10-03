@@ -35,6 +35,7 @@ app.config (
     url: '/presentation'
     controller: 'PresentationCtrl'
     templateUrl: 'presentation.html'
+    params: []
 
   $urlRouterProvider.otherwise '/home'
 
