@@ -1,5 +1,5 @@
 .text-center
-	h1 Hello {{user.name}}
+	h1 Hello {{user.name}} <br> <small>{{user.email}}</small>
 	br
 	br 
 
@@ -12,10 +12,11 @@
 			button.btn.btn-default(ng-click="createEvent()") Create event
 			br
 			br
-			.panel.panel-default click on an event to see its link
+			//- small. click on an event to see its link
 
+	.col-xs-6.col-xs-offset-3
 		table.table.table-hover.stitch-row
-			tr(ng-repeat="event in user.events")
+			tr(ng-repeat="event in user.events", class="animation")
 				td {{event.name}}
 				td {{event.date}}
 				td.stitch-now

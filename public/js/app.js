@@ -47,25 +47,27 @@ app.controller('HomeCtrl', function($scope, $state, $location, Dropbox, $window)
   };
 });
 
-app.controller('PresentationCtrl', function($scope, $state, $window) {
+app.controller('PresentationCtrl', function($scope, $state, $window, Dropbox) {
   $scope.message = "Stitch";
   $scope.newEvent = {};
+  $scope.user = {};
+  console.log(localStorage['dropbox-key'] !== null);
+  if (localStorage['dropbox-key'] !== null) {
+    Dropbox.setCredentials({
+      'access_token': localStorage['dropbox-key']
+    });
+    console.log(Dropbox.credentials());
+    console.log(Dropbox.isAuthenticated());
+    Dropbox.accountInfo().then(function(promisedUser) {
+      return $scope.user = {
+        name: promisedUser['display_name'],
+        email: promisedUser['email']
+      };
+    });
+  }
   if ($window.localStorage.length !== 1 && $window.localStorage['dropbox-key'] !== true) {
     $state.go('home', {});
   }
-  $scope.user = {
-    "name": "Harry Styles",
-    "dropboxToken": "xxx",
-    "events": [
-      {
-        "name": "HackZurich",
-        "date": "5th October"
-      }, {
-        "name": "HackNewZealand",
-        "date": "28th May"
-      }
-    ]
-  };
   $scope.dropboxLogin = function() {
     return console.log("logging in with dropbox...");
   };

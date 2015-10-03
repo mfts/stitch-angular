@@ -10,7 +10,7 @@
     "angulartics": "~0.17.1",
     "bootstrap": "3.2.x",
     "moment": "2.6.x",
-    "lodash": "~2.4.1"
-
+    "lodash": "~2.4.1",
+    "angular-animate": "1.2.x"
   }
 }
