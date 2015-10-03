@@ -5,6 +5,7 @@ app = angular.module 'angularParseBoilerplate', [
   'ngResource'
   'ui.router'
   'ui.bootstrap'
+  'ui.sortable'
   'app.templates'
   'Parse'
   'angulartics'

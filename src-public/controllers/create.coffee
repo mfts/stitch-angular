@@ -51,31 +51,39 @@ app.controller 'CreateCtrl', ($scope, $state, $window, $http, $modal, Dropbox, P
       $state.reload()
 
   $scope.finalizeModal = (folder) ->
-    $scope.currentFolder = folder
-    modalInstance = $modal.open(
-      animation: true,
-      templateUrl: 'messageModal.html',
-      controller: 'FinalizeCtrl'
-      resolve:
-        subfolders: () ->
-          return folder
-    )
-    modalInstance.result
-       .then () ->
-          # rematch rushees if report has been submitted
-          $scope.finalize($scope.currentFolder)
+    Dropbox.readdir(folder, null).then (promisedFolders) ->
+      console.log promisedFolders
+      modalInstance = $modal.open(
+        animation: true,
+        templateUrl: 'messageModal.html',
+        controller: 'FinalizeCtrl'
+        resolve:
+          folder: () ->
+            return folder
+          subfolders: () ->
+            return promisedFolders
+          Remember: () ->
+            return Remember
+      )
+      modalInstance.result
+         .then (name, ordered_files) ->
+            # rematch rushees if report has been submitted
+            console.log name
+            console.log ordered_files
+            $scope.finalize(name, ordered_files)
 
-
-  $scope.finalize = (name) ->
-    name = name.substring(1)
-    Remember.query({'where':{'folder_name':name}}).then (remember) ->
-      console.log remember[0]
-      remember = remember[0]
-      data = {oauth: remember.oauth, folder: remember.folder_name}
-      console.log "https://stitcher.scapp.io/stitch/#{data.oauth}/#{data.folder}"
-      $http.jsonp("https://stitcher.scapp.io/stitch/#{data.oauth}/#{data.folder}")
-        .success (data, status, headers, config) ->
-          console.log "success"
-          $state.reload()
+  # FINALIZING TO SEND TO SPRING
+  $scope.finalize = (name, ordered_files) ->
+    # console.log "name = #{name}"
+    # console.log ordered_files
+    # Remember.query({'where':{'folder_name':name}}).then (remember) ->
+    #   console.log remember[0]
+    #   remember = remember[0]
+    #   data = {oauth: remember.oauth, folder: remember.folder_name}
+    #   console.log "https://stitcher.scapp.io/stitch/#{data.oauth}/#{data.folder}/#{ordered_files.toString()}"
+      # $http.jsonp("https://stitcher.scapp.io/stitch/#{data.oauth}/#{data.folder}")
+      #   .success (data, status, headers, config) ->
+      #     console.log "success"
+      #     $state.reload()
 
 
