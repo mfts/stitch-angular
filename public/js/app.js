@@ -42,7 +42,6 @@ app.controller('HomeCtrl', function($scope, $state, $location, Dropbox, $window)
     var accessToken;
     if ($window.localStorage['dropbox-key'] !== null) {
       accessToken = $window.localStorage['dropbox-key'];
-      alert(accessToken);
       return $state.go('presentation', {});
     }
   };

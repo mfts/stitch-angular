@@ -5,14 +5,14 @@
 
 	h1 {{ accessToken }}
 
-	.col-xs-6.col-xs-offset-3
+	.col-xs-4.col-xs-offset-4
 		form#pre-presentation(role="form", name="new-event")
-			input.form-control.text-center(type="text", placeholder="Name of Event", ng-model="newEvent.name")
+			input.form-control(type="text", placeholder="Name of Event", ng-model="newEvent.name")
 			br
 			button.btn.btn-default(ng-click="createEvent()") Create event
 			br
 			br
-			.panel.panel-default Your URL will show up here
+			.panel.panel-default click on an event to see its link
 
 		table.table.table-hover.stitch-row
 			tr(ng-repeat="event in user.events")
