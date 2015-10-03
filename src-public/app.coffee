@@ -22,15 +22,23 @@ app.config (
 
   $stateProvider
   .state 'task',
-    url: '/:locale'
+    url: '/task'
     controller: 'TaskCtrl'
     templateUrl: 'task.html'
+  .state 'home',
+    url: '/home'
+    controller: 'HomeCtrl'
+    templateUrl: 'home.html'
+  .state 'presentation',
+    url: '/presentation'
+    controller: 'PresentationCtrl'
+    templateUrl: 'presentation.html'
 
-  $urlRouterProvider.otherwise '/fr'
+  $urlRouterProvider.otherwise '/home'
 
   ParseProvider.initialize(
-    "N2xyMRbsrFcBuzq7TXLwieDGM9FzwODEY44LLFOP", # Application ID
-    "zTAHO7HKWvbV1awq5wQlexRc368lOQtSbmycOi0O"  # REST API Key
+    "xw3annraVDvaHU4TfnW5kYV2i8EKX1ZTG8vM1CJ5", # Application ID
+    "HnPumKf2pJ4OI733IlIBSwibZKu7NbmcrBWUkAjy"  # REST API Key
   )
 
 app.run ($rootScope, $state) ->
