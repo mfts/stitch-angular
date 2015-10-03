@@ -1,4 +1,4 @@
-app.controller 'PresentationCtrl', ($scope, $state, $window, Dropbox) ->
+app.controller 'PresentationCtrl', ($scope, $state, $window, Dropbox, Parse, Remember) ->
 
   $scope.message = "Stitch"
   $scope.newEvent = {}
@@ -30,5 +30,12 @@ app.controller 'PresentationCtrl', ($scope, $state, $window, Dropbox) ->
   	console.log "new event created"
   	console.log $scope.newEvent
   	Dropbox.mkdir($scope.newEvent.name).then () ->
+      parseRemember = new Remember
+      parseRemember.oauth = localStorage['dropbox-key']
+      parseRemember.folder_name = $scope.newEvent.name
+      console.log "remember..."
+      console.log parseRemember
+      parseRemember.save().then (remember) ->
+        console.log remember.objectId
   		$state.reload()
 
