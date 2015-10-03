@@ -43,7 +43,7 @@ app.config (
     "HnPumKf2pJ4OI733IlIBSwibZKu7NbmcrBWUkAjy"  # REST API Key
   )
 
-  DropboxProvider.config("tz764utcclnkf06", "https://www.lachlankermode.com")
+  DropboxProvider.config("tz764utcclnkf06", "http://localhost:8008/callback.html")
 
 app.run ($rootScope, $state) ->
   $rootScope.$state = $state

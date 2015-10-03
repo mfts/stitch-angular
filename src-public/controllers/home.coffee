@@ -4,3 +4,4 @@ app.controller 'HomeCtrl', ($scope, Dropbox) ->
 
   $scope.dropboxLogin = () ->
   	console.log "logging in with dropbox..."
+  	Dropbox.authenticate()

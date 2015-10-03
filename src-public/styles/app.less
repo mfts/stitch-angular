@@ -2,13 +2,24 @@
 
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700italic);
 
+@dropbox-blue: #007ee5;
+
 body {
   //background-image: url('../img/needle-and-thread.jpg');
   background-color: #FCFFF5;
 }
 
+.dropbox-blue {
+	color: @dropbox-blue;
+}
 .dropbox-logo {
 	content: url('../img/blue-dropbox-glyph.jpg');
+}
+
+.btn-login {
+	height: 40%;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 4em;
 }
 
 .title-text {
@@ -26,9 +37,9 @@ body {
 		color:black;
 	}
 	&:hover {
-		background-color: lighten(#007ee5, 40%) !important;
+		background-color: lighten(@dropbox-blue, 40%) !important;
 		.stitch-link {
-			color:#007ee5;
+			color:@dropbox-blue;
 		}
 	}
 }
