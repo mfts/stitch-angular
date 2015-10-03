@@ -16,12 +16,11 @@ app.controller 'PresentationCtrl', ($scope, $state, $window, Dropbox) ->
         email: promisedUser['email']
       }
 
+    Dropbox.readdir('/', null).then (promisedFolders) ->
+      $scope.folders =  promisedFolders
+
   if $window.localStorage.length isnt 1 and $window.localStorage['dropbox-key'] isnt true
   	$state.go('home', {})
-
-
-  # fake user 
-  # $scope.user = {"name":  "Harry Styles", "dropboxToken":"xxx", "events" : [{"name":"HackZurich","date":"5th October"}, {"name":"HackNewZealand","date":"28th May"},{"name":"HackZurich","date":"5th October"}, {"name":"HackNewZealand","date":"28th May"},{"name":"HackZurich","date":"5th October"}, {"name":"HackNewZealand","date":"28th May"},{"name":"HackZurich","date":"5th October"}, {"name":"HackNewZealand","date":"28th May"}]}	
 
   $scope.dropboxLogin = () ->
   	console.log "logging in with dropbox..."

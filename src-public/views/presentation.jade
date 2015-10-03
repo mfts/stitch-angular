@@ -23,4 +23,12 @@
 					a.stitch-link
 						span.fa.fa-briefcase
 
+	.col-xs-6.col-xs-offset-3
+		table.table.table-hover.stitch-row
+			tr(ng-repeat="folder in folders")
+				td {{folder.substring(1)}}
+				td.stitch-now
+					a.stitch-link
+						span.fa.fa-briefcase
+
 
