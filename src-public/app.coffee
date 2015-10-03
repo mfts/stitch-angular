@@ -9,6 +9,7 @@ app = angular.module 'angularParseBoilerplate', [
   'Parse'
   'angulartics'
   'angulartics.google.analytics'
+  'dropbox'
 ]
 
 app.config (
@@ -16,6 +17,7 @@ app.config (
   $stateProvider
   $urlRouterProvider
   ParseProvider
+  DropboxProvider
 ) ->
 
   $locationProvider.hashPrefix '!'
@@ -40,6 +42,8 @@ app.config (
     "xw3annraVDvaHU4TfnW5kYV2i8EKX1ZTG8vM1CJ5", # Application ID
     "HnPumKf2pJ4OI733IlIBSwibZKu7NbmcrBWUkAjy"  # REST API Key
   )
+
+  DropboxProvider.config("tz764utcclnkf06", "https://www.lachlankermode.com")
 
 app.run ($rootScope, $state) ->
   $rootScope.$state = $state

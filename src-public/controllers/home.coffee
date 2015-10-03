@@ -1,4 +1,4 @@
-app.controller 'HomeCtrl', ($scope) ->
+app.controller 'HomeCtrl', ($scope, Dropbox) ->
 
   $scope.message = "Stitch"
 
