@@ -19,7 +19,13 @@ app.controller 'CreateCtrl', ($scope, $state, $window, $http, $modal, Dropbox, P
       }
 
     Dropbox.readdir('/', null).then (promisedFolders) ->
-      $scope.folders =  promisedFolders
+      # $scope.folders = promisedFolders
+      testfolders = promisedFolders
+      for each in testfolders
+        if each.substring(1) != '_stitched'
+          console.log "pushing #{each}"
+          $scope.folders.push(each)
+
       Remember.query().then (remember) ->
         count = 0
         for fold in $scope.folders
@@ -74,6 +80,6 @@ app.controller 'CreateCtrl', ($scope, $state, $window, $http, $modal, Dropbox, P
       modalInstance.result
          .then (name, ordered_files) ->
             # rematch rushees if report has been submitted
-            alert "files stitched! check it out in your dropbox folder"
+            alert "we're stitching your files. They'll be ready soon in a folder named '_stitched' in your dropbox folder"
 
 

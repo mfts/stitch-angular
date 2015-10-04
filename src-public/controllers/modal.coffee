@@ -4,7 +4,7 @@
 
 # Report Info Modal
 # -----------------
-app.controller 'FinalizeCtrl', ($scope, $modalInstance, folder, subfolders, Remember) ->
+app.controller 'FinalizeCtrl', ($scope, $modalInstance, $http, $state, folder, subfolders, Remember) ->
     # UI elements
     
     subfolders = (f.substring(folder.length+1) for f in subfolders)
@@ -25,7 +25,13 @@ app.controller 'FinalizeCtrl', ($scope, $modalInstance, folder, subfolders, Reme
           data = {oauth: remember.oauth, folder: remember.folder_name}
           console.log "https://stitcher.scapp.io/stitch/#{data.oauth}/#{data.folder}/#{ordered_files.toString()}/"
           $http.jsonp("https://stitcher.scapp.io/stitch/#{data.oauth}/#{data.folder}/#{ordered_files.toString()}/")
-            .success (data, status, headers, config) ->
+            .success (data) ->
               console.log "success"
+              consolo.log data
               $state.reload()
+            .error (data) ->
+              console.log "ERROR"
+              console.log data
+              $state.reload()
+
         $modalInstance.close($scope.message, $scope.lines)
