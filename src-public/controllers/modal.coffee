@@ -9,7 +9,7 @@ app.controller 'FinalizeCtrl', ($scope, $modalInstance, folder, subfolders, Reme
     
     subfolders = (f.substring(folder.length+1) for f in subfolders)
 
-    $scope.message = "in what order would you like these presentations?" #folder.substring(1)
+    $scope.message = "when all the files are here, arrange them in order and hit stitch!" #folder.substring(1)
     $scope.lines = subfolders
     $scope.executeMessage = "S-T-IT--CH"
 
@@ -19,16 +19,13 @@ app.controller 'FinalizeCtrl', ($scope, $modalInstance, folder, subfolders, Reme
     $scope.execute = () ->
         ordered_files = subfolders
         name = folder.substring(1)
-        console.log "JKAJPOIEJW"
-        console.log "name = #{name}"
-        console.log ordered_files
         Remember.query({'where':{'folder_name':name}}).then (remember) ->
           console.log remember[0]
           remember = remember[0]
           data = {oauth: remember.oauth, folder: remember.folder_name}
-          console.log "https://stitcher.scapp.io/stitch/#{data.oauth}/#{data.folder}/#{ordered_files.toString()}"
-          # $http.jsonp("https://stitcher.scapp.io/stitch/#{data.oauth}/#{data.folder}")
-          #   .success (data, status, headers, config) ->
-          #     console.log "success"
-          #     $state.reload()
+          console.log "https://stitcher.scapp.io/stitch/#{data.oauth}/#{data.folder}/#{ordered_files.toString()}/"
+          $http.jsonp("https://stitcher.scapp.io/stitch/#{data.oauth}/#{data.folder}/#{ordered_files.toString()}/")
+            .success (data, status, headers, config) ->
+              console.log "success"
+              $state.reload()
         $modalInstance.close($scope.message, $scope.lines)

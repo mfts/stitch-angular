@@ -1,18 +1,18 @@
 .text-center
-	h1 {{folder.name}}
-	h4 <small>your files will go straight to the folder's owner</small>
+	h1 {{remember.folder_name}}
+	h4 <small>your files will go straight to the folder's owner, listed above</small>
 	br
 	br 
 
 	.row
-		.col-sm-4.col-sm-offset-4
+		.col-sm-2.col-sm-offset-4
 			form(role="form", name="newRusheeForm", ng-submit="dropInDropbox()") 
-				.form-group
-					input.form-control#filename(type="text", placeholder="e.g. 'sex' or 'sex.ppt'", ng-model="fileForDB", ng-required="true")
+				.form-group.text-center
+					input#file(type="file", file-model="myFile")
 				br
 		.col-md-12(style="color:#B8BAB3;")
-			p you can write the file extension if you like, but it's not necessary
+			//- p you can write the file extension if you like, but it's not necessary
 			br
 		.col-sm-4.col-sm-offset-4
 			.col-sm-4.col-sm-offset-4
-				.submit-button submit
+				.submit-button(ng-click="upload()") submit
