@@ -22,4 +22,5 @@ app.controller 'SubmitCtrl', ($scope, $state, $location, $window, Dropbox, Parse
     uploadUrl = "https://stitcher.scapp.io/submit/#{r.oauth}/#{r.folder_name}/#{file.name}"
     console.log uploadUrl
     fileUpload.uploadFileToUrl(file, uploadUrl)
+    $state.go('home', {})
 

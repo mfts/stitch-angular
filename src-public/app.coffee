@@ -81,8 +81,10 @@ app.run ($rootScope, $state) ->
             headers: {'Content-Type': undefined}
         })
         .success(function(){
+          alert("success! your file was uploaded")
         })
         .error(function(){
+          "woops! your file was too big"
         });
     }
 }]);`

@@ -5,6 +5,7 @@ app.controller 'CreateCtrl', ($scope, $state, $window, $http, $modal, Dropbox, P
 
   $scope.user = {}
   $scope.folders = []
+  $scope.ids = []
 
   console.log localStorage['dropbox-key'] isnt null
   if localStorage['dropbox-key'] isnt null
@@ -19,6 +20,15 @@ app.controller 'CreateCtrl', ($scope, $state, $window, $http, $modal, Dropbox, P
 
     Dropbox.readdir('/', null).then (promisedFolders) ->
       $scope.folders =  promisedFolders
+      Remember.query().then (remember) ->
+        count = 0
+        for fold in $scope.folders
+          console.log fold.substring(1)
+          console.log remember[count].folder_name
+          for rem in remember
+            if fold.substring(1) is rem.folder_name
+              $scope.ids[rem.folder_name] = rem.objectId
+          count += 1
 
   if $window.localStorage.length isnt 1 and $window.localStorage['dropbox-key'] isnt true
     $state.go('home', {})
@@ -30,11 +40,7 @@ app.controller 'CreateCtrl', ($scope, $state, $window, $http, $modal, Dropbox, P
   $scope.logout = () ->
     $window.localStorage.clear()
     $state.reload()
-  
-  $scope.getId = (folder) ->
-    console.log folder
-    # Remember.query({'where':{'folder_name':folder.substring(1)}}).then (object) ->
-      # return object.objectId
+      
 
   $scope.createEvent = () ->
     console.log "new event created"
@@ -68,22 +74,6 @@ app.controller 'CreateCtrl', ($scope, $state, $window, $http, $modal, Dropbox, P
       modalInstance.result
          .then (name, ordered_files) ->
             # rematch rushees if report has been submitted
-            console.log name
-            console.log ordered_files
-            $scope.finalize(name, ordered_files)
-
-  # FINALIZING TO SEND TO SPRING
-  $scope.finalize = (name, ordered_files) ->
-    # console.log "name = #{name}"
-    # console.log ordered_files
-    # Remember.query({'where':{'folder_name':name}}).then (remember) ->
-    #   console.log remember[0]
-    #   remember = remember[0]
-    #   data = {oauth: remember.oauth, folder: remember.folder_name}
-    #   console.log "https://stitcher.scapp.io/stitch/#{data.oauth}/#{data.folder}/#{ordered_files.toString()}"
-      # $http.jsonp("https://stitcher.scapp.io/stitch/#{data.oauth}/#{data.folder}")
-      #   .success (data, status, headers, config) ->
-      #     console.log "success"
-      #     $state.reload()
+            alert "files stitched! check it out in your dropbox folder"
 
 

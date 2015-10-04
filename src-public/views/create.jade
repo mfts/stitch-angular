@@ -29,13 +29,13 @@
 
 	.col-xs-6.col-xs-offset-3
 		table.table.table-hover.stitch-row
-			tr(ng-repeat="folder in folders")
+			tr(ng-repeat="folder in folders track by $index")
 				td.lato(ng-click="finalizeModal(folder)", style="width:20em;") {{folder.substring(1)}}
 				//- td &nbsp;&nbsp;&nbsp;
 				td.highlight-hover.text-center
 					pre.writing-cursor(style="padding:0 1em;")
 						code
-						| "localhost:8008/#!/submit{{getId(folder)}}
+						| localhost:8008/#!/submit?{{ids[folder.substring(1)]}}
 
 	
 	//- button.btn(ng-click="finalizeModal()") FINALIZE
