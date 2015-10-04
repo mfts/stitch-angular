@@ -1,4 +1,4 @@
-# StitchIt
+# Stitch
 
 StitchIt is an application our team decided to develop after observing that, during the opening exercises, powerpoints were not projected seamlessly, but were instead all separate files. We decided to use several Dropbox APIs to create a Web platform for creating an integrated powerpoint. Event organizers can login with Dropbox, and create a new event, for which they will be returned a URL, which they can then share with speakers.
 
@@ -21,14 +21,14 @@ Bower components should already be in your cloned repo, as we pushed them to Git
 
 `npm run-script watch`
 
-Run using 'localhost' rather than the IP address.
+Please run using 'localhost', rather than the IP address, as our Dropbox redirects become funny if you do not have 'localhost' in your path.
 
 
 ## Our Team
 Lachie Kermode (Frontend)
 Marco Baumeler (Backend)
-Youseff (Designer, writer of Python code. We decided not to use Django.)
-Matt (CEO, spent 7 hours trying to install Python. Then we changed our minds.)
+Youseff Demitri(Designer, writer of Python code. We decided not to use Django.)
+Matt Krenik (CEO, spent 7 hours trying to install Python. Then we changed our minds.)
 
 ## Technologies
  -Dropbox API
