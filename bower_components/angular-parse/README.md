@@ -1,157 +1,41 @@
-# Parse for AngularJS
+# StitchIt
 
-_This is pre-alpha/actively developed. There are no guarantees of
-  stability, but you are welcome to play around and submit issues_
+StitchIt is an application our team decided to develop after observing that, during the opening exercises, powerpoints were not projected seamlessly, but were instead all separate files. We decided to use several Dropbox APIs to create a Web platform for creating an integrated powerpoint. Event organizers can login with Dropbox, and create a new event, for which they will be returned a URL, which they can then share with speakers.
 
-angular-parse is an [AngularJS](http://angularjs.org) module for
-interacting with the [Parse](http://parse.com) [REST
-API](https://parse.com/docs/rest). It *does not* utlize the [Parse
-JavaScript API](https://parse.com/docs/js_guide) but instead is built
-from (mostly) scratch. The reason is the existing Parse JavaScript API
-is not ideal for AngularJS applications.
+On visiting the given URL, speakers can upload their powerpoint presentation (.pdf is the recommended format), without requiring dropbox login, or even a dropbox account, and those files will automatically be uploaded to a folder in the organizer's Dropbox. The event organizer is then able to monitor the files in the relevant Dropbox folder through our platform. Once all powerpoints have been submitted, the event organizer is able to drag and drop powerpoint titles, specifying the appropriate order of the powerpoints. Once this has been finalized, the event organizer hits our StichIt button, which will combine the powerpoint files together in the specified order, and save that stitched file in the same folder on Dropbox, maintaining all of the original files.
 
-# Why Angular-Parse
+Our platform extends Dropbox's standard storage functionality, by turing it into a portal for file submission, where those who submit powerpoints at no stage have direct access to the Dropbox folder in which their submissions are being stored. Our titular function, the stitching of seperate files into one, employs Dropbox as an essential backend for a storage-based web-app. The StitchIt team is looking forward to developing mobile platforms for the application, and exploring the ways in which we can ensure all of your event's powerpoints are seamless and integrated. We love it when presentations are in sync, especially in the event you decide to underscore your words with rocking, upbeat music to get a young crowd going. Let us be your music. Let us stitch your dreams together. If kittens are what you want, at StitchIt we have them.  WE ARE THE FUTURE. !!!! Dare to dream.
 
-There are a few things that are not ideal about the existing Parse
-JavaScript API in AngularJS. The existing API is modeled after [Backbone
-Models](http://backbonejs.org/#Model) and the main problem is setters
-are used instead of object properties. `instance.set('property', 'value')` 
-doesn't really fit well with things like `ng-model`
+## Second Repo
+We have two repos. StitchIt is a seamless operation. Difference is a virtue.
+https://github.com/MarcoBau/stitcher.git
 
-Instead, angular-parse is based loosely on [Spine
-Models](http://spinejs.com/docs/models) where properties directly
-defined on the object are used. To facilitate this, when defining a
-model, it is "configured" by supplying the class name (as defined in
-Parse) as well as which properties are part of that class.
-
-Angular-parse also uses promises for any methods making network calls.
-
-## Getting started
-
-Include the JavaScript file
-
-```html
-<!-- Include AngularJS -->
-<script src="path/to/angular-parse.js"></script>
+## Running in Development
+Because of Dropbox's OAuth protocols, we can't host this hacky code online. Here's how you can run a development server:
 ```
-
-Make sure to add `"Parse"` as a dependency of your main module
-
-```javascript
-var app = angular.module("YourApp", ["Parse"])
+git clone
+npm install
+bower install
 ```
+Bower components should already be in your cloned repo, as we pushed them to Git for the reason that we dragged and dropped our Dropbox module in -- it's missing from bower.json and the main production scripts. Once everything is downloaded:
 
-Angular-parse also requires you provide the value "ParseConfig" as an
-object with the following format
-
-```javascript
-app.config(function (ParseProvider) {
-  ParseProvider.initialize("PARSE_APPLICATION_ID", "PARSE_REST_API_KEY");
-});
-```
-
-## Defining Models
-
-You can define models by extending Parse.Model. You must call configure
-on the class and pass it the Parse class name, and the name of any
-attributes of that class
-
-Using CoffeeScript:
-```coffeescript
-app.factory 'Car', (Parse) ->
-  class Car extends Parse.model
-    @configure "Car", "make", "model", "year"
-
-    @customClassMethod: (arg) ->
-      # add custom class methods like this
-
-    customInstanceMethod: (arg) ->
-      # add custom instance methods like this
-```
-
-Using JavaScript:
-```javascript
-// Not implemented yet, sorry
-```
-
-## Using Models
-
-A model acts much the same as a normal JavaScript object with a
-constructor
-
-### Creating a new instance
-
-You can create a new instance by using `new`. Any attributes passed in
-will be set on the instance. This does not save it to parse, that must
-be done with `.save()`. The save method returns a promise, which is
-fulfilled with the instance itself.
-
-```javascript
-var car = new Car({
-  make: "Scion",
-  model: "xB",
-  year: 2008
-});
-
-car.isNew() === true;
-car.objectId == null;
-
-car.save().then(function (_car) {
-  _car === car;
-  car.isNew() === false;
-  car.objectId === "...aParseId";
-  car.createdAt === "...aDateString";
-  car.updatedAt === "...aDateString";
-}
-```
-
-If the object has an objectId, it will be updated properly, and will not
-create a new instance. `save()` can be used either for new or existing
-records.
-
-### Getting an instance By Id
-
-The `find` method on your model class takes an objectId, and returns a
-promise that will be fulfilled with your instance if it exists.
+`npm run-script watch`
 
 
-```javascript
-Car.find("someObjectId").then(function (car) {
-  car.objectId === "someObjectId";
-})
-```
+## Our Team
+Lachie Kermode (Frontend)
+Marco Baumeler (Backend)
+Youseff (Designer, writer of Python code. We decided not to use Django.)
+Matt (CEO, spent 7 hours trying to install Python. Then we changed our minds.)
 
-### Destroying an instance
-
-The destroy method on an instance will destroy it set destroyed to true
- and set the item's objectId to null
-
-```javascript
-Car.find("someObjectId").then(function (car) {
-  car.objectId === "someObjectId";
-
-  car.destroy().then(function (_car) {
-    car === _car;
-    car.destroyed === true;
-    car.isNew() === true;
-    car.objectId === null;
-  })
-})
-```
-
-### Defining a custom user class
-
-A simple User class is provided to you. However, you can subclass it:
-
-```coffeescript
-angular.module('Parse').factory 'ParseCustomUser', (ParseDefaultUser) ->
-      class CustomUser extends ParseDefaultUser
-        @configure 'users', 'username', 'password', 'property'
-```
-
-In this manner, all User instances returned by the Parse methods
-will be of your custom class.
-
-### Contributing
-
-Pull requests and issues are welcome.
+## Technologies
+ -Dropbox API
+ -AngularJS
+ -Spring Boot
+ -Swisscom Application Cloud (shoutout to their great pillows)
+ -Jade
+ -CoffeeScript
+ -Parse.com
+ -Bower
+ -GulpJS
+ -Django (A false start we threw away 10 hours in. Just to re-emphasize, we didn't use any of the Python code Youseff wrote.)
